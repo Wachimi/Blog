@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevBlog 📝</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- NAWIGACJA -->
+    <nav id="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <span class="logo-icon">📝</span>
+          <span class="logo-text">DevBlog</span>
+        </div>
+        <div class="nav-links">
+          <a href="#" class="nav-link active" data-view="home">Blog</a>
+          <a href="#" class="nav-link" data-view="contact">Kontakt</a>
+        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <!-- Mobile menu -->
+      <div class="mobile-menu hidden" id="mobileMenu">
+        <a href="#" class="mobile-link" data-view="home">Blog</a>
+        <a href="#" class="mobile-link" data-view="contact">Kontakt</a>
+      </div>
+    </nav>
+
+    <!-- WIDOK: BLOG (LISTA POSTÓW) -->
+    <div id="view-home" class="view active">
+      <!-- HERO -->
+      <header class="hero">
+        <div class="hero-content">
+          <h1>DevBlog</h1>
+          <p>Artykuły o programowaniu, technologiach i tworzeniu stron</p>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- FILTRY I WYSZUKIWARKA -->
+        <div class="controls">
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Szukaj artykułów..."
+              class="search-input"
+            />
+          </div>
+          <div class="categories" id="categoriesFilter">
+            <!-- Wypełniane przez JS -->
+          </div>
+        </div>
+
+        <!-- LICZNIK WYNIKÓW -->
+        <div class="results-info" id="resultsInfo"></div>
+
+        <!-- LISTA POSTÓW -->
+        <div class="posts-grid" id="postsGrid">
+          <!-- Wypełniane przez JS -->
+        </div>
+
+        <!-- BRAK WYNIKÓW -->
+        <div id="noResults" class="no-results hidden">
+          <div class="no-results-icon">🔍</div>
+          <h3>Brak wyników</h3>
+          <p>Spróbuj innych słów kluczowych lub wybierz inną kategorię</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIDOK: POJEDYNCZY POST -->
+    <div id="view-post" class="view">
+      <div class="container container-narrow">
+        <button id="backBtn" class="back-btn">← Wróć do listy</button>
+        <article id="postContent">
+          <!-- Wypełniane przez JS -->
+        </article>
+      </div>
+    </div>
+
+    <!-- WIDOK: KONTAKT -->
+    <div id="view-contact" class="view">
+      <div class="container container-narrow">
+        <div class="contact-header">
+          <h2>📬 Skontaktuj się</h2>
+          <p>Masz pytanie? Chcesz współpracować? Napisz do mnie!</p>
+        </div>
+
+        <!-- FORMULARZ -->
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Imię *</label>
+              <input type="text" id="fname" placeholder="Jan" />
+              <span class="field-error" id="fnameError"></span>
+            </div>
+            <div class="form-group">
+              <label for="lname">Nazwisko *</label>
+              <input type="text" id="lname" placeholder="Kowalski" />
+              <span class="field-error" id="lnameError"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" placeholder="jan@example.com" />
+            <span class="field-error" id="emailError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Temat *</label>
+            <select id="subject">
+              <option value="">-- Wybierz temat --</option>
+              <option value="wspolpraca">Współpraca</option>
+              <option value="pytanie">Pytanie techniczne</option>
+              <option value="oferta">Zapytanie ofertowe</option>
+              <option value="inne">Inne</option>
+            </select>
+            <span class="field-error" id="subjectError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">
+              Wiadomość *
+              <span class="char-counter" id="charCounter">0/500</span>
+            </label>
+            <textarea
+              id="message"
+              placeholder="Twoja wiadomość..."
+              maxlength="500"
+              rows="6"
+            ></textarea>
+            <span class="field-error" id="messageError"></span>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="consent" />
+              <span>Zgadzam się na przetwarzanie danych osobowych *</span>
+            </label>
+            <span class="field-error" id="consentError"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">
+            Wyślij wiadomość ✉️
+          </button>
+        </form>
+
+        <!-- WIADOMOŚĆ SUKCESU -->
+        <div id="formSuccess" class="form-success hidden">
+          <div class="success-icon">✅</div>
+          <h3>Wiadomość wysłana!</h3>
+          <p>Dziękuję za kontakt. Odezwę się najszybciej jak to możliwe.</p>
+          <button id="sendAnotherBtn" class="btn btn-secondary">
+            Wyślij kolejną wiadomość
+          </button>
+        </div>
+
+        <!-- ZAPISANE WIADOMOŚCI (dev panel) -->
+        <div class="saved-messages" id="savedMessages">
+          <h3>📥 Zapisane wiadomości (Local Storage):</h3>
+          <div id="messagesList"></div>
+          <button id="clearMessagesBtn" class="btn btn-ghost">
+            🗑️ Wyczyść wiadomości
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 DevBlog · Zbudowany z HTML, CSS i JavaScript</p>
+      </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
